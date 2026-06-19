@@ -1,0 +1,149 @@
+* {
+    margin: 0px;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.card {
+    background-color: #9EB49C;
+    width: 100%;
+    min-height: 100vh;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.play {
+    background-color: #E5D9C5;
+    width: 400px;
+    padding: 25px 35px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(46, 78, 63, 0.2);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    color: #2E4E3F;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+img {
+    border-radius: 50%;
+    margin-bottom: 20px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 5px solid #2E4E3F;
+}
+
+#title {
+    color: #2E4E3F;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+#artist {
+    color: #557A66;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    color: #2E4E3F;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#progress {
+    -webkit-appearance: none; 
+    width: 100%;
+    height: 6px;
+    background: #2E4E3F; 
+    border-radius: 5px; 
+    margin: 10px 0px 20px 0px;
+    outline: none;
+}
+
+#progress::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; 
+    background: #C06C59; 
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(46, 78, 63, 0.4); 
+}
+
+#progress::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.control {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.control div {
+    background-color: #9EB49C;
+    color: #2E4E3F;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.control div:hover {
+    background-color: #2E4E3F;
+    color: #E5D9C5;
+}
+
+.volume-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #2E4E3F;
+}
+
+#volumeSlider {
+    -webkit-appearance: none;
+    width: 50%;
+    height: 4px;
+    background: #9EB49C;
+    border-radius: 5px;
+    outline: none;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #2E4E3F;
+    cursor: pointer;
+}
