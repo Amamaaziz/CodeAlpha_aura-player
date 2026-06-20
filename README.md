@@ -3,7 +3,7 @@
 A mini audio streaming interface engineered with a clean structural separation of concerns, strict state handling, and interactive design precision. Aura Stream implements a high-fidelity **Material Design 3 (M3) "Midnight Mint"** design token system featuring glassmorphic components, fluid interactive layers, and custom easing micro-animations.
 
 ## 🚀 Live Demo
-Experience the live instance here: `https://aura-player-pearl.vercel.app/`
+Experience the live instance here: `https://aura-player-pearl.vercel.app`
 
 ## ✨ Core Features
 - **Dynamic Audio State Pipeline:** Fully responsive play, pause, skip forward, and skip backward controls linked cleanly to localized track array node indexes.
