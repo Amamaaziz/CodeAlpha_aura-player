@@ -3,54 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">    <link rel="stylesheet" href="music.css">
-    <title>Music Player</title>
+    <title>Aura Stream — Premium Audio Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="music.css">
 </head>
 <body>
-    <div class="card">
-        <div class="play">
-            <header>
-                <div><i class="fa-solid fa-angle-left"></i></div>
-                <h1>Now Playing</h1>
-                <div><i class="fa-solid fa-bars"></i></div>
-            </header>
-            
-            <img src="musicplayer.jpg" id="cover" alt="Album Art" onerror="this.src='[https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=400&auto=format&fit=crop](https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=400&auto=format&fit=crop)'">
-            
+
+<div class="mesh-bg-container">
+    <div class="mesh-blob blob-1"></div>
+    <div class="mesh-blob blob-2"></div>
+    <div class="mesh-blob blob-3"></div>
+</div>
+<div class="vignette-overlay"></div>
+
+<div class="player-wrapper">
+    <div class="player-card">
+        <header class="player-header">
+            <button class="icon-btn" aria-label="Minimize player interface"><i class="fa-solid fa-angle-left"></i></button>
+            <h1 class="header-title">Now Playing</h1>
+            <button class="icon-btn" aria-label="Open streaming playlist"><i class="fa-solid fa-bars"></i></button>
+        </header>
+        
+        <div class="track-artwork-wrapper">
+            <div class="artwork-disk-outer" id="diskWrapper">
+                <img src="musicplayer.jpg" id="cover" alt="Album Art Stream Node" onerror="this.src='https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=400&auto=format&fit=crop'">
+            </div>
+            <div class="ambient-glow-ring"></div>
+        </div>
+        
+        <div class="track-metadata">
             <h2 id="title">Song Title</h2>
             <p id="artist">Artist Name</p>
+        </div>
 
-            <div class="aud"> 
-                <audio id="song">
-                    <source src="">
-                </audio>
-            </div>    
-            
+        <audio id="song">
+            <source src="">
+        </audio>
+        
+        <div class="timeline-container">
+            <input type="range" value="0" id="progress" min="0" step="0.1" aria-label="Track playback timeline position slider">
             <div class="time-display">
-                <span id="currentTime">0:00</span>
-                <span id="durationTime">0:00</span>
-            </div>
-
-            <input type="range" value="0" id="progress">
-            
-            <div class="control">
-                <div onclick="prevSong()"><i class="fa-solid fa-backward"></i></div>
-                <div onclick="playPause()"><i class="fa-solid fa-play" id="controlIcon"></i></div>
-                <div onclick="nextSong()"><i class="fa-solid fa-forward"></i></div>
-            </div>
-
-            <div class="volume-container">
-                <i class="fa-solid fa-volume-down"></i>
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
-                <i class="fa-solid fa-volume-up"></i>
+                <span id="currentTime" class="mono-font">0:00</span>
+                <span id="durationTime" class="mono-font">0:00</span>
             </div>
         </div>
+        
+        <div class="control-panel">
+            <button onclick="prevSong()" class="control-btn secondary-btn" aria-label="Skip to previous track"><i class="fa-solid fa-backward"></i></button>
+            <button onclick="playPause()" class="control-btn master-play-btn" id="playBtn" aria-label="Toggle playback state state"><i class="fa-solid fa-play" id="controlIcon"></i></button>
+            <button onclick="nextSong()" class="control-btn secondary-btn" aria-label="Skip to next track"><i class="fa-solid fa-forward"></i></button>
+        </div>
+
+        <div class="volume-system-module">
+            <i class="fa-solid fa-volume-down volume-icon"></i>
+            <div class="slider-fill-container">
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" aria-label="Master audio volume output adjustments range controller">
+            </div>
+            <i class="fa-solid fa-volume-up volume-icon"></i>
+        </div>
     </div>
+</div>
 
 <script>
 const progress = document.getElementById("progress");
 const song = document.getElementById("song");
 const controlIcon = document.getElementById("controlIcon");
+const playBtn = document.getElementById("playBtn");
+const diskWrapper = document.getElementById("diskWrapper");
 
 const title = document.getElementById("title");
 const artist = document.getElementById("artist");
@@ -67,30 +89,28 @@ const playlist = [
         cover: "musicplayer.jpg"
     },
     {
-        title: "Tum na ho ",
-        artist: "aashir whajhat and samar jafari",
+        title: "Tum na ho",
+        artist: "Aashir Wajahat & Samar Jafari",
         src: "audio 2.mpeg.mp3",
         cover: "musicplayer.jpg"
     }
-
 ];
 
 let currentSongIndex = 0;
 let isDragging = false; 
 
 function formatTime(seconds) {
+    if (isNaN(seconds)) return "0:00";
     let min = Math.floor(seconds / 60);
     let sec = Math.floor(seconds % 60);
-    if (sec < 10) {
-        sec = `0${sec}`;
-    }
-    return `${min}:${sec}`;
+    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
 }
 
 song.onloadedmetadata = function() {
     progress.max = song.duration;
     progress.value = song.currentTime;
     durationTimeDisplay.innerText = formatTime(song.duration);
+    updateTimelineFill();
 };
 
 function loadSong(index) {
@@ -101,41 +121,49 @@ function loadSong(index) {
     song.load(); 
     song.play();
     
-    controlIcon.classList.add("fa-pause");
-    controlIcon.classList.remove("fa-play");
+    controlIcon.className = "fa-solid fa-pause";
+    playBtn.classList.add("playing");
+    diskWrapper.classList.add("rotating");
 }
 
 function nextSong() {
-    currentSongIndex++;
-    if (currentSongIndex > playlist.length - 1) {
-        currentSongIndex = 0;
-    }
+    currentSongIndex = (currentSongIndex + 1) % playlist.length;
     loadSong(currentSongIndex);
 }
 
 function prevSong() {
-    currentSongIndex--;
-    if (currentSongIndex < 0) {
-        currentSongIndex = playlist.length - 1;
-    }
+    currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
     loadSong(currentSongIndex);
 }
 
 function playPause() {
     if (song.paused) {
         song.play();
-        controlIcon.classList.add("fa-pause");
-        controlIcon.classList.remove("fa-play");
+        controlIcon.className = "fa-solid fa-pause";
+        playBtn.classList.add("playing");
+        diskWrapper.classList.add("rotating");
     } else {
         song.pause();
-        controlIcon.classList.add("fa-play");
-        controlIcon.classList.remove("fa-pause");
+        controlIcon.className = "fa-solid fa-play";
+        playBtn.classList.remove("playing");
+        diskWrapper.classList.remove("rotating");
     }
+}
+
+function updateTimelineFill() {
+    const ratio = (progress.value / progress.max) * 100;
+    progress.style.setProperty('--track-fill-percentage', `${ratio}%`);
+}
+
+function updateVolumeFill() {
+    const ratio = (volumeSlider.value / volumeSlider.max) * 100;
+    volumeSlider.style.setProperty('--volume-fill-percentage', `${ratio}%`);
 }
 
 song.ontimeupdate = function() {
     if (!isDragging) {
         progress.value = song.currentTime;
+        updateTimelineFill();
     }
     currentTimeDisplay.innerText = formatTime(song.currentTime);
 };
@@ -144,11 +172,12 @@ progress.oninput = function() {
     isDragging = true;
     song.currentTime = progress.value;
     currentTimeDisplay.innerText = formatTime(song.currentTime);
+    updateTimelineFill();
 };
 
 progress.onchange = function() {
     isDragging = false;
-    if (controlIcon.classList.contains("fa-pause")) {
+    if (!song.paused) {
         song.play();
     }
 };
@@ -159,12 +188,15 @@ song.onended = function() {
 
 volumeSlider.oninput = function() {
     song.volume = volumeSlider.value;
+    updateVolumeFill();
 };
 
 window.onload = function() {
     title.innerText = playlist[currentSongIndex].title;
     artist.innerText = playlist[currentSongIndex].artist;
     song.src = playlist[currentSongIndex].src;
+    updateTimelineFill();
+    updateVolumeFill();
 }
 </script>
 </body>

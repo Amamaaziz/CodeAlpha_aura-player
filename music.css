@@ -1,151 +1,186 @@
-* {
-    margin: 0px;
-    padding: 0%;
-    box-sizing: border-box;
+:root {
+  /* ---- Material Design 3 System Tokens: Midnight Mint Portfolio Sync ---- */
+  --bg-dark: #070A0F;           /* Low luminance platform base */
+  --surface-m3: rgba(255, 255, 255, 0.035);
+  --surface-raised: rgba(255, 255, 255, 0.06);
+  --border-m3: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  
+  /* Material Accent Tokens */
+  --accent-mint: #2EB695;       /* Dynamic component color element */
+  --accent-dim: rgba(46, 182, 149, 0.15);
+  --accent-line: rgba(46, 182, 149, 0.4);
+  
+  /* Typography Configuration */
+  --text-hi: #F1F5F9;           /* Title element text colors */
+  --text-mid: #94A3B8;          /* Subdued description labels */
+  --text-low: #5C6E85;          /* Metadata track tags indicators */
+  
+  /* Interpolation Setup tokens */
+  --ease-m3: cubic-bezier(0.2, 0.8, 0.2, 1); /* Accurate Material 3 deceleration curve */
+  --radius-card: 32px;
+  --font-main: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 }
 
+/* ---------- Global Layout Structuring Overrides ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: sans-serif;
+  background-color: var(--bg-dark);
+  font-family: var(--font-main);
+  color: var(--text-mid);
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
 }
 
-.card {
-    background-color: #9EB49C;
-    width: 100%;
-    min-height: 100vh;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+/* ---------- Innovative Fluid Gradient Mesh Background Architecture ---------- */
+.mesh-bg-container {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden;
+  filter: blur(100px); opacity: 0.45; pointer-events: none;
+}
+.mesh-blob {
+  position: absolute; border-radius: 50%; mix-blend-mode: screen;
+  animation: dynamicMeshFloat 22s ease-in-out infinite alternate;
+}
+.blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #134E4A; }
+.blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: #1E3A8A; animation-delay: -4s; animation-duration: 28s; }
+.blob-3 { top: 30%; left: 40%; width: 45vw; height: 45vw; background: rgba(46, 182, 149, 0.25); animation-delay: -8s; }
+
+.vignette-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(circle at center, transparent 20%, #04060A 95%);
 }
 
-.play {
-    background-color: #E5D9C5;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);    width: 90%;
-    max-width: 400px;
-    padding: 25px 35px;
-    border-radius: 30px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(46, 78, 63, 0.2);
+@keyframes dynamicMeshFloat {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(8%, 12%) scale(1.15) rotate(120deg); }
+  100% { transform: translate(-5%, -8%) scale(0.9) rotate(360deg); }
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    color: #2E4E3F;
-    align-items: center;
+/* ---------- Master Card Layout Container Module ---------- */
+.player-wrapper { position: relative; z-index: 10; width: 100%; padding: 24px; display: flex; justify-content: center; }
+.player-card {
+  background: var(--surface-m3);
+  border: 1px solid var(--border-m3);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  width: 100%; max-width: 385px; padding: 32px 32px 36px;
+  border-radius: var(--radius-card); text-align: center;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255,255,255,0.05);
+  animation: cardEntranceReveal 1s var(--ease-m3);
 }
 
-header h1 {
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+@keyframes cardEntranceReveal {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-img {
-    border-radius: 50%;
-    margin-bottom: 20px;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border: 5px solid #2E4E3F;
+/* ---------- Native Header Layout Architecture ---------- */
+.player-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+.header-title { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-hi); opacity: 0.9; }
+.icon-btn {
+  background: transparent; border: 1px solid transparent; color: var(--text-mid);
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 1.05rem; transition: all 0.25s var(--ease-m3);
+}
+.icon-btn:hover { background: var(--surface-raised); color: var(--text-hi); border-color: var(--border-m3); }
+
+/* ---------- Track Artwork Wrapper & Glow Ring Paradigm ---------- */
+.track-artwork-wrapper { position: relative; width: 210px; height: 210px; margin: 0 auto 32px; display: flex; align-items: center; justify-content: center; }
+.artwork-disk-outer {
+  width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+  border: 4px solid var(--border-strong); position: relative; z-index: 5;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  transition: transform 0.6s var(--ease-m3);
+}
+.artwork-disk-outer img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Dynamic disk Rotation State Pipeline triggers via active playback rules */
+.artwork-disk-outer.rotating { animation: continuousDiskRotate 24s linear infinite; }
+@keyframes continuousDiskRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.ambient-glow-ring {
+  position: absolute; inset: -4px; border-radius: 50%; z-index: 2; pointer-events: none;
+  background: radial-gradient(circle, var(--accent-mint) 0%, transparent 70%);
+  opacity: 0.15; transition: opacity 0.4s var(--ease-m3);
+}
+.artwork-disk-outer.rotating ~ .ambient-glow-ring { opacity: 0.35; animation: ambientPulse 3s ease-in-out infinite alternate; }
+@keyframes ambientPulse { 0% { transform: scale(1); opacity: 0.25; } 100% { transform: scale(1.08); opacity: 0.4; } }
+
+/* ---------- Track Context Typography ---------- */
+.track-metadata { margin-bottom: 28px; }
+#title { color: var(--text-hi); font-size: 1.45rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; }
+#artist { color: var(--accent-mint); font-size: 0.88rem; font-weight: 500; opacity: 0.85; }
+
+/* ---------- Integrated Playback Progress Sliders Modules ---------- */
+.timeline-container { margin-bottom: 32px; }
+.time-display { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.74rem; color: var(--text-low); }
+.mono-font { font-family: var(--font-mono); font-weight: 500; }
+
+/* Custom Native Range Masking */
+#progress, #volumeSlider {
+  -webkit-appearance: none; appearance: none; width: 100%; background: transparent; cursor: pointer; outline: none;
 }
 
-#title {
-    color: #2E4E3F;
-    font-size: 24px;
-    margin-bottom: 5px;
+/* Native Slider Input Engineering Tracks styling logic elements block */
+#progress::-webkit-slider-runnable-track {
+  width: 100%; height: 4px; border-radius: 2px;
+  background: linear-gradient(to right, var(--accent-mint) var(--track-fill-percentage, 0%), var(--border-strong) var(--track-fill-percentage, 0%));
 }
-
-#artist {
-    color: #557A66;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.time-display {
-    display: flex;
-    justify-content: space-between;
-    color: #2E4E3F;
-    font-size: 12px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-#progress {
-    -webkit-appearance: none; 
-    width: 100%;
-    height: 6px;
-    background: #2E4E3F; 
-    border-radius: 5px; 
-    margin: 10px 0px 20px 0px;
-    outline: none;
-}
-
 #progress::-webkit-slider-thumb {
-    -webkit-appearance: none; 
-    width: 20px;
-    height: 20px;
-    border-radius: 50%; 
-    background: #C06C59; 
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(46, 78, 63, 0.4); 
+  -webkit-appearance: none; appearance: none;
+  width: 12px; height: 12px; border-radius: 50%; background: var(--text-hi);
+  margin-top: -4px; box-shadow: 0 0 8px rgba(0,0,0,0.4);
+  transition: transform 0.15s var(--ease-m3), background-color 0.15s var(--ease-m3);
+}
+#progress:hover::-webkit-slider-thumb { transform: scale(1.35); background: var(--accent-mint); }
+
+/* ---------- Master Control Nodes Panel Interfaces ---------- */
+.control-panel { display: flex; justify-content: center; align-items: center; gap: 24px; margin-bottom: 32px; }
+.control-btn {
+  background: transparent; border: 1px solid transparent; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.3s var(--ease-m3);
 }
 
-#progress::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-    transition: transform 0.2s ease-in-out;
-}
+.secondary-btn { width: 48px; height: 48px; border-radius: 50%; color: var(--text-mid); font-size: 1.15rem; }
+.secondary-btn:hover { background: var(--surface-raised); color: var(--text-hi); border-color: var(--border-m3); }
+.secondary-btn:active { transform: scale(0.95); }
 
-.control {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 20px;
+.master-play-btn {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--text-hi); color: var(--bg-dark); font-size: 1.35rem;
+  box-shadow: 0 8px 24px rgba(46, 182, 149, 0.2);
 }
+.master-play-btn:hover { background: var(--accent-mint); transform: scale(1.04); box-shadow: 0 8px 24px var(--accent-dim); }
+.master-play-btn:active { transform: scale(0.96); }
 
-.control div {
-    background-color: #9EB49C;
-    color: #2E4E3F;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    justify-content: center;
-    align-items: center;
-    display: inline-flex;
-    cursor: pointer;
-    transition: 0.2s;
+/* Play icon align correction adjustment node logic override layout values */
+.master-play-btn .fa-play { transform: translateX(2px); }
+.master-play-btn.playing .fa-pause { transform: translateX(0px); }
+
+/* ---------- Master Volume Output Architecture Components ---------- */
+.volume-system-module { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 0 8px; }
+.volume-icon { color: var(--text-low); font-size: 0.85rem; width: 16px; text-align: center; }
+.slider-fill-container { position: relative; flex: 1; display: flex; align-items: center; }
+
+#volumeSlider::-webkit-slider-runnable-track {
+  width: 100%; height: 3px; border-radius: 2px;
+  background: linear-gradient(to right, var(--text-mid) var(--volume-fill-percentage, 100%), var(--border-m3) var(--volume-fill-percentage, 100%));
 }
-
-.control div:hover {
-    background-color: #2E4E3F;
-    color: #E5D9C5;
-}
-
-.volume-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    color: #2E4E3F;
-}
-
-#volumeSlider {
-    -webkit-appearance: none;
-    width: 50%;
-    height: 4px;
-    background: #9EB49C;
-    border-radius: 5px;
-    outline: none;
-}
-
 #volumeSlider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #2E4E3F;
-    cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  width: 10px; height: 10px; border-radius: 50%; background: var(--text-mid);
+  margin-top: -3.5px; transition: transform 0.15s var(--ease-m3), background-color 0.15s var(--ease-m3);
+}
+#volumeSlider:hover::-webkit-slider-thumb { transform: scale(1.3); background: var(--accent-mint); }
+#volumeSlider:hover::-webkit-slider-runnable-track { background: linear-gradient(to right, var(--accent-mint) var(--volume-fill-percentage, 100%), var(--border-m3) var(--volume-fill-percentage, 100%)); }
+
+/* ---------- Fluid Adaptive Responsive Breakpoint Layer Schema ---------- */
+@media (max-width: 400px) {
+  .player-card { padding: 24px 20px 28px; }
+  .track-artwork-wrapper { width: 180px; height: 180px; }
+  #title { font-size: 1.25rem; }
 }
